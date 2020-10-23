@@ -81,7 +81,7 @@ const Movies = () => {
 
   return (
     <Main>
-      <Header appearInput={true} color={null} />
+      <Header appearInput={true} color={0} />
       {tvShow.map((show, i) => (
         <TvShowContent image={String(tvShowBackground)}>
           <div key={i} className="background-shadow">

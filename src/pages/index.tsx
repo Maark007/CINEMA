@@ -14,6 +14,7 @@ import {
   TvShowsContainer
 } from '../styles/pages/home'
 import { GetStaticProps } from 'next'
+import { GetTvShowsId } from '../utils/getTvShowsId'
 
 type Series = {
   backdrop_path: any
@@ -129,6 +130,6 @@ export const getStaticProps: GetStaticProps = async () => {
       series: series.data.results,
       theathers: theathers.data.results
     },
-    revalidate: 60,
+    revalidate: 60
   }
 }
