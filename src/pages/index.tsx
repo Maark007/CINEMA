@@ -11,8 +11,9 @@ import {
   Main,
   CaroulselBG,
   Carousel,
-  TvShowsContainer,
+  TvShowsContainer
 } from '../styles/pages/home'
+import { GetStaticProps } from 'next'
 
 type Series = {
   backdrop_path: any
@@ -29,27 +30,20 @@ type Movies = {
   id: number
 }
 
-type TrendingsProps = {
-  title: string
-  poster_path: string
-  name: string
+interface HomeProps {
+  series: any
+  theathers: any
 }
 
-const Home: React.FC = () => {
+const Home: React.FC<HomeProps> = ({ series, theathers }) => {
   const [tvShows, setTvShows] = useState<Series[]>([])
   const [movieData, setMovieData] = useState<Movies[]>([])
   const [actualMovie, setActualMovie] = useState(0)
 
   useEffect(() => {
-    const loadData = async () => {
-      const series = await api.get('/tv/popular')
-      const theathers = await api.get('/movie/popular')
-
-      setTvShows(series.data.results)
-      setMovieData(theathers.data.results)
-    }
-    loadData()
-  }, [actualMovie])
+    setTvShows(series)
+    setMovieData(theathers)
+  }, [series, theathers])
 
   return (
     <Main>
@@ -126,3 +120,15 @@ const Home: React.FC = () => {
 }
 
 export default Home
+
+export const getStaticProps: GetStaticProps = async () => {
+  const series = await api.get('/tv/popular')
+  const theathers = await api.get('/movie/popular')
+  return {
+    props: {
+      series: series.data.results,
+      theathers: theathers.data.results
+    },
+    revalidate: 60,
+  }
+}

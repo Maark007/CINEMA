@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from 'react'
-import Header from '../../components/header'
 import Link from 'next/link'
+import Pagination from '../../components/pagination'
 
+import Header from '../../components/header'
+import Footer from '../../components/footer'
 import api from '../../services/api'
 import Search from '../../assets/search.svg'
 import Star from '../../assets/star.svg'
@@ -19,6 +21,7 @@ type MoviesProps = {
 const MoviesList = () => {
   const [moviesList, setMoviesList] = useState<MoviesProps[]>([])
   const [searchQuery, setSearchQuery] = useState('')
+
   const [page, Setpage] = useState<number>(1)
 
   useEffect(() => {
@@ -26,9 +29,7 @@ const MoviesList = () => {
       const moviesList = await api.get('/discover/movie', {
         params: { page: page }
       })
-      if (searchQuery === '') {
-        setMoviesList(moviesList.data.results)
-      }
+      if (searchQuery === '') setMoviesList(moviesList.data.results)
     }
     loadData()
   }, [searchQuery, page])
@@ -53,7 +54,7 @@ const MoviesList = () => {
       <Content>
         <div className="input-content">
           <Input onChange={(e) => setSearchQuery(e.target.value)} />
-          <img src={Search} alt="search" />
+          <img src={Search} alt="search" id="myimage"/>
         </div>
         <div className="shows-box">
           {moviesList.length ? (
@@ -64,6 +65,7 @@ const MoviesList = () => {
                   <>
                     <Link href={`/movies/${movie.id}`}>
                       <img
+                        loading="lazy"
                         className="poster-img"
                         src={`https://image.tmdb.org/t/p/w600_and_h900_bestv2/${movie.poster_path}`}
                       />
@@ -82,8 +84,9 @@ const MoviesList = () => {
             <h3 className="no-movies">No movies Found</h3>
           )}
         </div>
-        <button onClick={() => Setpage(prev => prev + 1)}>Add</button>
+        <Pagination page={page} setPage={Setpage} />
       </Content>
+      <Footer />
     </Main>
   )
 }

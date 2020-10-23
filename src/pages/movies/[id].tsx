@@ -18,6 +18,7 @@ import {
   GalleryContent,
   Recommended
 } from '../../styles/pages/tvshow'
+import { GetStaticProps } from 'next'
 
 type TvShowProps = {
   backdrop_path: any
@@ -62,14 +63,17 @@ const Movies = () => {
         const tvShowVideos = await api.get(`/movie/${id}/videos`)
         const images = await api.get(`/movie/${id}/images`)
         const cast = await api.get(`/movie/${id}/credits`)
-        const recommendations = await api.get(`/movie/${id}/similar`)
+        const similars = await api.get(`/movie/${id}/similar`)
+        const recommendations = await api.get(`/movie/${id}/recommendations`)
 
         setTvShow([tvShowDetails.data])
         setTvShowBackground(images.data.backdrops[0].file_path)
         setTvShowVideo(tvShowVideos.data.results)
         setCast(cast.data.cast)
         setGaleryImg(images.data.backdrops.slice(0, 11))
-        setRecommendedShow(recommendations.data.results)
+        if (similars.data.results.length !== 0) {
+          return setRecommendedShow(similars.data.results)
+        } else setRecommendedShow(recommendations.data.results)
       }
     }
     loadData()
@@ -146,7 +150,7 @@ const Movies = () => {
       <GalleryContent>
         <h1>GALLERY</h1>
         <div className="image-container scroll">
-          {GalleryImg.filter(e => !!e.file_path).map((image, i) => (
+          {GalleryImg.filter((e) => !!e.file_path).map((image, i) => (
             <img
               key={i}
               src={`http://image.tmdb.org/t/p/w1920_and_h800_multi_faces/${image.file_path}`}
@@ -157,14 +161,16 @@ const Movies = () => {
       <Recommended>
         <h1>Recommended</h1>
         <div className="show-content scroll">
-          {recommendedShow.filter(e => !!e.poster_path).map((e, i) => (
-            <Link href={`/movies/${e.id}`}>
-              <img
-                key={i}
-                src={`https://image.tmdb.org/t/p/w600_and_h900_bestv2/${e.poster_path}`}
-              />
-            </Link>
-          ))}
+          {recommendedShow
+            .filter((e) => !!e.poster_path)
+            .map((e, i) => (
+              <Link href={`/movies/${e.id}`}>
+                <img
+                  key={i}
+                  src={`https://image.tmdb.org/t/p/w600_and_h900_bestv2/${e.poster_path}`}
+                />
+              </Link>
+            ))}
         </div>
       </Recommended>
       <Footer />
@@ -173,3 +179,7 @@ const Movies = () => {
 }
 
 export default Movies
+
+// export const getStacticProps: GetStaticProps = async () => {
+
+// }
