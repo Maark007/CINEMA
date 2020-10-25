@@ -1,14 +1,14 @@
-import React, { useEffect, useState } from 'react'
-import api from '../../services/api'
+import React, { useState } from 'react'
 import Link from 'next/link'
-import Footer from '../../components/footer'
+import api from '../../services/api'
 
+import Footer from '../../components/footer'
 import Header from '../../components/header'
+
 import Player from '../../assets/player.svg'
 import Star from '../../assets/star.svg'
 import ErrorSvg from '../../assets/error.svg'
 
-import { useRouter } from 'next/router'
 import {
   Main,
   TvShowContent,
@@ -18,7 +18,8 @@ import {
   GalleryContent,
   Recommended
 } from '../../styles/pages/tvshow'
-import { GetStaticProps } from 'next'
+import { GetStaticPaths, GetStaticProps } from 'next'
+import { moviesIds } from '../../utils/movies'
 
 type TvShowProps = {
   backdrop_path: any
@@ -27,10 +28,6 @@ type TvShowProps = {
   vote_average: number
   poster_path?: string
   id?: number
-}
-
-type TvShowPropsVideo = {
-  key: string
 }
 
 type TvShowPropsImage = {
@@ -44,46 +41,19 @@ type CastProps = {
   profile_path: string
 }
 
-const Movies = () => {
-  const [tvShow, setTvShow] = useState<TvShowProps[]>([])
-  const [tvShowBackground, setTvShowBackground] = useState([])
-  const [tvShowVideo, setTvShowVideo] = useState<TvShowPropsVideo[]>([])
-  const [cast, setCast] = useState<CastProps[]>([])
-  const [GalleryImg, setGaleryImg] = useState<TvShowPropsImage[]>([])
-  const [recommendedShow, setRecommendedShow] = useState<TvShowProps[]>([])
+type RecommendedProps = {
+ id: number
+ poster_path: string
+}
+
+const Movies = (props: any) => {
   const [appearVideo, setAppearVideo] = useState(false)
-
-  const route = useRouter()
-  const { id } = route.query
-
-  useEffect(() => {
-    const loadData = async () => {
-      if (id) {
-        const tvShowDetails = await api.get(`/movie/${id}`)
-        const tvShowVideos = await api.get(`/movie/${id}/videos`)
-        const images = await api.get(`/movie/${id}/images`)
-        const cast = await api.get(`/movie/${id}/credits`)
-        const similars = await api.get(`/movie/${id}/similar`)
-        const recommendations = await api.get(`/movie/${id}/recommendations`)
-
-        setTvShow([tvShowDetails.data])
-        setTvShowBackground(images.data.backdrops[0].file_path)
-        setTvShowVideo(tvShowVideos.data.results)
-        setCast(cast.data.cast)
-        setGaleryImg(images.data.backdrops.slice(0, 11))
-        if (similars.data.results.length !== 0) {
-          return setRecommendedShow(similars.data.results)
-        } else setRecommendedShow(recommendations.data.results)
-      }
-    }
-    loadData()
-  }, [id])
 
   return (
     <Main>
       <Header appearInput={true} color={0} />
-      {tvShow.map((show, i) => (
-        <TvShowContent image={String(tvShowBackground)}>
+      {props.tvShow.map((show: TvShowProps, i: number) => (
+        <TvShowContent image={String(props.images.backdrops[0].file_path)}>
           <div key={i} className="background-shadow">
             <div className="player-box">
               <img
@@ -109,7 +79,7 @@ const Movies = () => {
                 </div>
                 <iframe
                   allowFullScreen
-                  src={`https://www.youtube.com/embed/${tvShowVideo[0]?.key}`}
+                  src={`https://www.youtube.com/embed/${props.tvShowVideos[0]?.key}`}
                 />
               </Framer>
             )}
@@ -131,9 +101,9 @@ const Movies = () => {
       <Cast>
         <h1>CAST</h1>
         <div className="cast-container scroll">
-          {cast
-            .filter((e) => !!e.profile_path)
-            .map((people, i) => (
+          {props.cast
+            .filter((e: CastProps) => !!e.profile_path)
+            .map((people: CastProps, i: number) => (
               <div className="image-box" key={i}>
                 <img
                   draggable="false"
@@ -150,20 +120,23 @@ const Movies = () => {
       <GalleryContent>
         <h1>GALLERY</h1>
         <div className="image-container scroll">
-          {GalleryImg.filter((e) => !!e.file_path).map((image, i) => (
-            <img
-              key={i}
-              src={`http://image.tmdb.org/t/p/w1920_and_h800_multi_faces/${image.file_path}`}
-            />
-          ))}
+          {props.images.backdrops
+            .filter((e: TvShowPropsImage) => !!e.file_path)
+            .map((image: TvShowPropsImage, i: number) => (
+              <img
+                key={i}
+                src={`http://image.tmdb.org/t/p/w1920_and_h800_multi_faces/${image.file_path}`}
+              />
+            ))
+            .slice(0, 11)}
         </div>
       </GalleryContent>
       <Recommended>
         <h1>Recommended</h1>
         <div className="show-content scroll">
-          {recommendedShow
-            .filter((e) => !!e.poster_path)
-            .map((e, i) => (
+          {props.recommendations
+            .filter((e: RecommendedProps) => !!e.poster_path)
+            .map((e:  RecommendedProps, i: number) => (
               <Link href={`/movies/${e.id}`}>
                 <img
                   key={i}
@@ -180,6 +153,42 @@ const Movies = () => {
 
 export default Movies
 
-// export const getStacticProps: GetStaticProps = async () => {
+export const getStaticPaths: GetStaticPaths = async () => {
+  const paths = moviesIds.map((id: any) => {
+    return { params: { id: id.toString() } }
+  })
+  return {
+    paths: paths,
+    fallback: false
+  }
+}
 
-// }
+export const getStaticProps: GetStaticProps = async (context) => {
+  if (!context?.params?.id) {
+    throw new Error('Missing param id.')
+  }
+  const { id } = context.params
+
+  const tvShowDetails = await api.get(`/movie/${id}`)
+  const tvShowVideos = await api.get(`/movie/${id}/videos`)
+  const images = await api.get(`/movie/${id}/images`)
+  const cast = await api.get(`/movie/${id}/credits`)
+  const similars = await api.get(`/movie/${id}/similar`)
+  const recommendations = await api.get(`/movie/${id}/recommendations`)
+
+  function recommendedMovies() {
+    if (similars.data.results.length !== 0) {
+      return similars.data.results
+    } else recommendations.data.results
+  }
+
+  return {
+    props: {
+      tvShow: [tvShowDetails.data],
+      tvShowVideos: tvShowVideos.data.results,
+      images: images.data,
+      cast: cast.data.cast,
+      recommendations: recommendedMovies()
+    }
+  }
+}

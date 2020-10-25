@@ -14,7 +14,7 @@ import {
   TvShowsContainer
 } from '../styles/pages/home'
 import { GetStaticProps } from 'next'
-import { GetTvShowsId } from '../utils/getTvShowsId'
+import { tvShowsIds } from '../utils/tvshows'
 
 type Series = {
   backdrop_path: any
@@ -46,6 +46,8 @@ const Home: React.FC<HomeProps> = ({ series, theathers }) => {
     setMovieData(theathers)
   }, [series, theathers])
 
+  console.log(tvShowsIds.toString())
+
   return (
     <Main>
       {
@@ -59,7 +61,6 @@ const Home: React.FC<HomeProps> = ({ series, theathers }) => {
                   <div className="description dissapear">
                     <span>{mv.overview}</span>
                   </div>
-
                   <Link href={`/tvshow/${mv.id}`}>
                     <button>DETAILS</button>
                   </Link>
@@ -92,7 +93,7 @@ const Home: React.FC<HomeProps> = ({ series, theathers }) => {
         ))[actualMovie]
       }
       <div className="tvshow-title">
-        <span>Tv Shows</span>
+        <span>Popular Movies</span>
       </div>
       <div className="movies-flex">
         {movieData
@@ -108,7 +109,9 @@ const Home: React.FC<HomeProps> = ({ series, theathers }) => {
                       src={`https://image.tmdb.org/t/p/w500/${movie.poster_path}`}
                     />
                   </Link>
-                  <button>SEE ALL</button>
+                  <Link href={'/tvshowlist'}>
+                    <button>SEE ALL</button>
+                  </Link>
                 </div>
               </div>
             </TvShowsContainer>

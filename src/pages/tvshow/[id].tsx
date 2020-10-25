@@ -18,7 +18,7 @@ import {
   Recommended
 } from '../../styles/pages/tvshow'
 import { GetStaticPaths, GetStaticProps } from 'next'
-import { tvShowsIds } from '../../../tvshows'
+import { tvShowsIds } from '../../utils/tvshows'
 
 type TvShowDetailsProps = {
   name: string

@@ -187,6 +187,7 @@ export const TvShowsContainer = styled.div<DefaultTheme>`
     img {
       width: 80%;
       object-fit: cover;
+      cursor: pointer;
     }
     button {
       margin-top: 10px;
