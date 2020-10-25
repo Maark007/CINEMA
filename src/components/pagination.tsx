@@ -42,7 +42,7 @@ interface PaginationProps {
   setPage: any
 }
 
-const Pagination: React.FC<PaginationProps> = ({ page, setPage }) => {
+const Pagination: React.FC<PaginationProps> = ({ setPage }) => {
   const [selectedPage, setSelectedPage] = useState<number>(1)
   const [paginationLength, setPaginationLength] = useState<number>(6)
 

@@ -21,7 +21,6 @@ type TvProps = {
 const TvList = () => {
   const [tvList, setTvList] = useState<TvProps[]>([])
   const [searchQuery, setSearchQuery] = useState('')
-
   const [page, Setpage] = useState<number>(1)
 
   useEffect(() => {
@@ -54,7 +53,7 @@ const TvList = () => {
       <Content>
         <div className="input-content">
           <Input onChange={(e) => setSearchQuery(e.target.value)} />
-          <img src={Search} alt="search" id="myimage"/>
+          <img src={Search} alt="search" id="myimage" />
         </div>
         <div className="shows-box">
           {tvList.length ? (
@@ -64,11 +63,11 @@ const TvList = () => {
                 <div className="box" key={i}>
                   <>
                     <Link href={`/tvshow/${movie.id}`}>
-                      <img
-                        loading="lazy"
-                        className="poster-img"
-                        src={`https://image.tmdb.org/t/p/w600_and_h900_bestv2/${movie.poster_path}`}
-                      />
+                        <img
+                          loading="lazy"
+                          className="poster-img"
+                          src={`https://image.tmdb.org/t/p/w600_and_h900_bestv2/${movie.poster_path}`}
+                        />
                     </Link>
                     <div className="title-box">
                       <h2>{movie.name}</h2>

@@ -54,7 +54,7 @@ const MoviesList = () => {
       <Content>
         <div className="input-content">
           <Input onChange={(e) => setSearchQuery(e.target.value)} />
-          <img src={Search} alt="search" id="myimage"/>
+          <img src={Search} alt="search" id="myimage" />
         </div>
         <div className="shows-box">
           {moviesList.length ? (
@@ -64,11 +64,14 @@ const MoviesList = () => {
                 <div className="box" key={i}>
                   <>
                     <Link href={`/movies/${movie.id}`}>
-                      <img
-                        loading="lazy"
-                        className="poster-img"
-                        src={`https://image.tmdb.org/t/p/w600_and_h900_bestv2/${movie.poster_path}`}
-                      />
+                      <div>
+                        <div className="effect" />
+                        <img
+                          loading="lazy"
+                          className="poster-img"
+                          src={`https://image.tmdb.org/t/p/w600_and_h900_bestv2/${movie.poster_path}`}
+                        />
+                      </div>
                     </Link>
                     <div className="title-box">
                       <h2>{movie.title}</h2>

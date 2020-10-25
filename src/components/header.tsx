@@ -10,7 +10,7 @@ interface HeaderProps {
   appearInput: boolean
 }
 
-const Header: React.FC<HeaderProps> = ({ color, appearInput }) => {
+const Header: React.FC<HeaderProps> = ({ color }) => {
   const [isOpen, toggleOpen] = useCycle(false, true)
   return (
     <Main isOpen={isOpen}>

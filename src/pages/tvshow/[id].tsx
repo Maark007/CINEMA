@@ -42,10 +42,6 @@ type ImagesTypes = {
   file_path: string
 }
 
-type StaticProps = {
-  id: number
-}
-
 const Movies = (props: any) => {
   const [appearVideo, setAppearVideo] = useState(false)
 

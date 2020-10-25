@@ -30,8 +30,6 @@ h1,h2, h3, h4, span, p, a {
   height: 12px;
 }
 
-.scroll::-webkit-scrollbar-track {}
-
 .scroll::-webkit-scrollbar-thumb {
   border-radius: 10px;
   background: #000;

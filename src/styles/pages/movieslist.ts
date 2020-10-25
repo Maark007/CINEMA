@@ -34,7 +34,6 @@ export const Content = styled.div`
   }
   & .poster-img {
     height: 370px;
-    width: 100%;
     width: auto;
     object-fit: cover;
     border-radius: 5px;
