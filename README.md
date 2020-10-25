@@ -1,16 +1,15 @@
 # CINEMA
 
-## you can see the app running here
+## You can see the app running here
 
 https://cinema-topaz.vercel.app/
 
-## Utilized tools
+## Tools used
 
 ```
 - React.JS
 - Next.JS
 - TypeScript
-
 ```
 
 ## Preview
