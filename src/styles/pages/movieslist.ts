@@ -16,6 +16,10 @@ export const Input = styled.input`
 `
 
 export const Content = styled.div`
+  min-height: calc(100vh - 80px);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
   & .input-content {
     display: flex;
     align-items: center;
