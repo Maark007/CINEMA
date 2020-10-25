@@ -46,7 +46,7 @@ const Pagination: React.FC<PaginationProps> = ({ page, setPage }) => {
   const [selectedPage, setSelectedPage] = useState<number>(1)
   const [paginationLength, setPaginationLength] = useState<number>(6)
 
-  const paginationEffect = (id) => {
+  const paginationEffect = (id: number) => {
     setSelectedPage(id)
     setPage(id)
   }
@@ -60,7 +60,7 @@ const Pagination: React.FC<PaginationProps> = ({ page, setPage }) => {
       }
     })
     setSelectedPage((prev) => prev + 1)
-    setPage((prev) => prev + 1)
+    setPage((prev: number) => prev + 1)
   }
 
   const previusPage = () => {
@@ -73,7 +73,7 @@ const Pagination: React.FC<PaginationProps> = ({ page, setPage }) => {
         }
       })
       setSelectedPage((prev) => prev - 1)
-      setPage((prev) => prev - 1)
+      setPage((prev: number) => prev - 1)
     } else return
   }
 
@@ -82,17 +82,16 @@ const Pagination: React.FC<PaginationProps> = ({ page, setPage }) => {
       <div className="pagination-container">
         <img src={Previous} height="20" onClick={previusPage} />
         {Array.from({ length: paginationLength }).map((_, i) => {
-          if (i === 0 || i - 5 > 0) {
-            return null
-          }
-          return (
+          return i !== 0 &&
+            ((selectedPage < 3 && i <= 5) ||
+              Math.abs(selectedPage - i) <= 4) ? (
             <span
               className={`${selectedPage === i && 'selected'}`}
               onClick={() => paginationEffect(i)}
             >
               {i}
             </span>
-          )
+          ) : null
         })}
         <img src={Skip} height="20" onClick={nextPages} />
       </div>

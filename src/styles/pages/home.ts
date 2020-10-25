@@ -212,6 +212,7 @@ export const TvShowsContainer = styled.div<DefaultTheme>`
       margin-bottom: 20px;
       border-bottom: 2px solid #fff;
       width: 80%;
+      max-width: 80%;
       opacity: 0.7;
     }
   }
@@ -230,4 +231,3 @@ export const TvShowsContainer = styled.div<DefaultTheme>`
     }
   }
 `
-

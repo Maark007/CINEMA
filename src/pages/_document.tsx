@@ -25,9 +25,9 @@ export default class MyDocument extends Document {
               href="https://fonts.googleapis.com/css2?family=Piazzolla:wght@300&display=swap"
               rel="stylesheet"
             />
-            <script
-              src="https://kit.fontawesome.com/74bf3ac2d3.js"
-            />
+            <script src="https://kit.fontawesome.com/74bf3ac2d3.js" />
+            <link rel="shortcut icon" href="/assets/popcorn.svg" />
+            <link rel="apple-touch-icon" href="/assets/popcorn.svg" />
             {initialProps.styles}
             {sheet.getStyleElement()}
           </>

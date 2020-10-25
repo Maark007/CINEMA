@@ -14,7 +14,6 @@ import {
   TvShowsContainer
 } from '../styles/pages/home'
 import { GetStaticProps } from 'next'
-import { tvShowsIds } from '../utils/tvshows'
 
 type Series = {
   backdrop_path: any
@@ -45,8 +44,6 @@ const Home: React.FC<HomeProps> = ({ series, theathers }) => {
     setTvShows(series)
     setMovieData(theathers)
   }, [series, theathers])
-
-  console.log(tvShowsIds.toString())
 
   return (
     <Main>
@@ -101,9 +98,7 @@ const Home: React.FC<HomeProps> = ({ series, theathers }) => {
             <TvShowsContainer image={movie.backdrop_path} key={i}>
               <div className="show-div">
                 <div className="image-container">
-                  <div className="title">
-                    <h3>{movie.title}</h3>
-                  </div>
+                  <div className="title" />
                   <Link href={`/movies/${movie.id}`}>
                     <img
                       src={`https://image.tmdb.org/t/p/w500/${movie.poster_path}`}
@@ -133,6 +128,6 @@ export const getStaticProps: GetStaticProps = async () => {
       series: series.data.results,
       theathers: theathers.data.results
     },
-    revalidate: 60
+    revalidate: 600
   }
 }

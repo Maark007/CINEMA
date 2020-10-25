@@ -24,7 +24,7 @@ const Header: React.FC<HeaderProps> = ({ color, appearInput }) => {
             <Link href="/movieslist">
               <h4 className='hvr-left'>Movies</h4>
             </Link>
-            <Link href="tvshowlist">
+            <Link href="/tvshowlist">
               <h4 className='hvr-left'>
                 TV Shows
               </h4>
@@ -38,7 +38,7 @@ const Header: React.FC<HeaderProps> = ({ color, appearInput }) => {
           <Link href="/movieslist">
             <h3 className={`hvr-left ${color === 2 && 'bg-red'}`}>Movies</h3>
           </Link>
-          <Link href="tvshowlist">
+          <Link href="/tvshowlist">
             <h3 className={`hvr-left ${color === 3 && 'bg-red'}`}>TV Shows</h3>
           </Link>
         </div>
