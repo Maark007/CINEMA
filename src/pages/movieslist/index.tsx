@@ -48,6 +48,7 @@ const MoviesList = () => {
     searchAll()
   }, [searchQuery])
 
+
   return (
     <Main>
       <Header color={2} appearInput={false} />
@@ -87,7 +88,7 @@ const MoviesList = () => {
             <h3 className="no-movies">No movies Found</h3>
           )}
         </div>
-        {!searchQuery && <Pagination page={page} setPage={Setpage} />}
+        {!searchQuery &&  <Pagination page={page} setPage={Setpage} />}
       </Content>
       <Footer />
     </Main>

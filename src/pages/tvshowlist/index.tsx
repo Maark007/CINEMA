@@ -83,7 +83,7 @@ const TvList = () => {
             <h3 className="no-movies">No movies Found</h3>
           )}
         </div>
-        <Pagination page={page} setPage={Setpage} />
+        {!searchQuery &&  <Pagination page={page} setPage={Setpage} />}
       </Content>
       <Footer />
     </Main>
