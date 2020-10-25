@@ -4,7 +4,7 @@
 
 https://cinema-topaz.vercel.app/
 
-## Utilized tools
+## Tools used
 
 ```
 - React.JS
