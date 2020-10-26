@@ -2,7 +2,7 @@
 
 ## You can see the app running here
 
-https://cinema-topaz.vercel.app/
+https://cinema-ten.vercel.app/
 
 ## Tools used
 
