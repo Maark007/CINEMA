@@ -26,7 +26,7 @@ const MoviesList = () => {
 
   useEffect(() => {
     const loadData = async () => {
-      const moviesList = await api.get('/movie/top_rated', {
+      const moviesList = await api.get('/movie/popular', {
         params: { page: page }
       })
       if (searchQuery === '') setMoviesList(moviesList.data.results)
