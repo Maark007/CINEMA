@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import api from '../services/api'
 import Link from 'next/link'
 
@@ -30,25 +30,23 @@ type Movies = {
   id: number
 }
 
+
+type FilterProps = {
+  id: number
+}
+
 interface HomeProps {
   series: any
   theathers: any
 }
 
 const Home: React.FC<HomeProps> = ({ series, theathers }) => {
-  const [tvShows, setTvShows] = useState<Series[]>([])
-  const [movieData, setMovieData] = useState<Movies[]>([])
   const [actualMovie, setActualMovie] = useState(0)
-
-  useEffect(() => {
-    setTvShows(series)
-    setMovieData(theathers)
-  }, [series, theathers])
 
   return (
     <Main>
       {
-        tvShows.map((mv) => (
+        series.map((mv: Series) => (
           <CaroulselBG image={mv.backdrop_path} key={mv.id}>
             <Header color={1} appearInput={true} />
             <Carousel>
@@ -93,8 +91,9 @@ const Home: React.FC<HomeProps> = ({ series, theathers }) => {
         <span>Popular Movies</span>
       </div>
       <div className="movies-flex">
-        {movieData
-          .map((movie, i) => (
+        {theathers
+          .filter((id: FilterProps) => id.id !== 724989 && id.id !== 741067)
+          .map((movie: Movies, i: number) => (
             <TvShowsContainer image={movie.backdrop_path} key={i}>
               <div className="show-div">
                 <div className="image-container">

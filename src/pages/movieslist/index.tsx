@@ -26,7 +26,7 @@ const MoviesList = () => {
 
   useEffect(() => {
     const loadData = async () => {
-      const moviesList = await api.get('/discover/movie', {
+      const moviesList = await api.get('/movie/top_rated', {
         params: { page: page }
       })
       if (searchQuery === '') setMoviesList(moviesList.data.results)
@@ -60,7 +60,6 @@ const MoviesList = () => {
         <div className="shows-box">
           {moviesList.length ? (
             moviesList
-              .filter((e) => !!e.poster_path)
               .map((movie, i) => (
                 <div className="box" key={i}>
                   <>

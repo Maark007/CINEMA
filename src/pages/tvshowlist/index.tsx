@@ -25,7 +25,7 @@ const TvList = () => {
 
   useEffect(() => {
     const loadData = async () => {
-      const tvList = await api.get('/discover/tv', {
+      const tvList = await api.get('/tv/top_rated', {
         params: { page: page }
       })
       if (searchQuery === '') setTvList(tvList.data.results)
