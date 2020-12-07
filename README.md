@@ -14,10 +14,10 @@ https://cinema-ten.vercel.app/
 
 ## Preview
 
-![Optional text](src/assets/github/main.PNG  =250x)
-![Optional text](src/assets/github/preview.PNG  =250x)
-![Optional text](src/assets/github/cast.PNG  =250x)
-![Optional text](src/assets/github/search.PNG  =250x)
+![Optional text](src/assets/github/main.PNG)
+![Optional text](src/assets/github/preview.PNG)
+![Optional text](src/assets/github/cast.PNG)
+![Optional text](src/assets/github/search.PNG)
 
 ## How run my app
 
