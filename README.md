@@ -19,6 +19,8 @@ https://cinema-ten.vercel.app/
 ![Optional text](src/assets/github/cast.PNG)
 ![Optional text](src/assets/github/search.PNG)
 
+![minipic](src/assets/github/search.PNG)
+
 ## How run my app
 
 ```
