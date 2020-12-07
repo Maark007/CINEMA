@@ -19,7 +19,7 @@ https://cinema-ten.vercel.app/
 ![Optional text](src/assets/github/cast.PNG)
 ![Optional text](src/assets/github/search.PNG)
 
-<img src={require(src/assets/github/search.PNG)} width="200" height="200" />
+![](src/assets/github/search.PNG | width=100)
 
 ## How run my app
 
